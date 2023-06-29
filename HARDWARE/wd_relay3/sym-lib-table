@@ -1,0 +1,6 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "dryer_node-rescue")(type "Legacy")(uri "/home/tjp/TJP_PRV/Patento/Csakvar/DTS/dryer_node-rescue.lib")(options "")(descr ""))
+  (lib (name "dryertemp_i2-rescue")(type "Legacy")(uri "/home/tjp/TJP_PRV/Patento/Csakvar/DTS/dryertemp_i2-rescue.lib")(options "")(descr ""))
+  (lib (name "dryer_combo-rescue")(type "KiCad")(uri "${KIPRJMOD}/dryer_combo-rescue.kicad_sym")(options "")(descr ""))
+)

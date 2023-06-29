@@ -1,0 +1,17 @@
+11:45:00 **** Incremental Build of configuration Debug for project wd_relay3 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G070xx -c -I../Core/Inc -I../Drivers/STM32G0xx_HAL_Driver/Inc -I../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "wd_relay3.elf" @"objects.list"   -mcpu=cortex-m0plus -T"/home/tjp/TJP_PRV/wd_relay3/SOFTWARE/wd_relay3/STM32G070CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="wd_relay3.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: wd_relay3.elf
+ 
+arm-none-eabi-size   wd_relay3.elf 
+arm-none-eabi-objdump -h -S  wd_relay3.elf  > "wd_relay3.list"
+   text	   data	    bss	    dec	    hex	filename
+  10604	     20	   2012	  12636	   315c	wd_relay3.elf
+Finished building: default.size.stdout
+ 
+Finished building: wd_relay3.list
+ 
+
+11:45:02 Build Finished. 0 errors, 0 warnings. (took 1s.186ms)
+

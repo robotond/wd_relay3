@@ -1,0 +1,18 @@
+!SESSION 2023-06-29 11:40:14.185 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -data /home/tjp/TJP_PRV/wd_relay3/SOFTWARE -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-29 11:40:21.594
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-29 11:40:21.595
+!MESSAGE Log4j2 initialized with config file /home/tjp/TJP_PRV/wd_relay3/SOFTWARE/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-29 11:40:24.860
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-29 11:42:31.528
+!MESSAGE Indexed 'wd_relay3' (24 sources, 85 headers) in 5.09 sec: 5,043 declarations; 25,715 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0065%)
