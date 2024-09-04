@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,10 +42,10 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
-UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-
+int length,pcycles;
+char tx_buffer[100];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -53,7 +53,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
-static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -69,6 +68,7 @@ static void MX_USART3_UART_Init(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -93,7 +93,6 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
-  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -103,38 +102,41 @@ int main(void)
   while (1)
   {
 	  HAL_GPIO_WritePin(RED_GPIO_Port, RED_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(PRBLED_GPIO_Port, PRBLED_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(WHITE_GPIO_Port, WHITE_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(YELLOW_GPIO_Port, YELLOW_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(GREEN_GPIO_Port, GREEN_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(TRIG_K1_GPIO_Port, TRIG_K1_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(TRIG_K2_GPIO_Port, TRIG_K2_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(ON_K3_GPIO_Port, ON_K3_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(RED_GPIO_Port, RED_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(PRBLED_GPIO_Port, PRBLED_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(GREEN_GPIO_Port, GREEN_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(WHITE_GPIO_Port, WHITE_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(YELLOW_GPIO_Port, YELLOW_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(TRIG_K1_GPIO_Port, TRIG_K1_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(TRIG_K2_GPIO_Port, TRIG_K2_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(ON_K3_GPIO_Port, ON_K3_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(50);
-    /* USER CODE END WHILE */
+	  HAL_Delay(500);
+		length=sprintf(tx_buffer,"Motto power cycles since tester power up: %06d \n\r", pcycles++);
+		HAL_UART_Transmit(&huart1, (uint8_t*)tx_buffer, length, 20);
+
+	  /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
@@ -163,7 +165,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV2;
+  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
   RCC_OscInitStruct.PLL.PLLN = 8;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -180,7 +182,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -283,42 +285,6 @@ static void MX_USART2_UART_Init(void)
 }
 
 /**
-  * @brief USART3 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART3_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART3_Init 0 */
-
-  /* USER CODE END USART3_Init 0 */
-
-  /* USER CODE BEGIN USART3_Init 1 */
-
-  /* USER CODE END USART3_Init 1 */
-  huart3.Instance = USART3;
-  huart3.Init.BaudRate = 115200;
-  huart3.Init.WordLength = UART_WORDLENGTH_8B;
-  huart3.Init.StopBits = UART_STOPBITS_1;
-  huart3.Init.Parity = UART_PARITY_NONE;
-  huart3.Init.Mode = UART_MODE_TX_RX;
-  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart3.Init.ClockPrescaler = UART_PRESCALER_DIV1;
-  huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART3_Init 2 */
-
-  /* USER CODE END USART3_Init 2 */
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -330,32 +296,54 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, TRIG_K1_Pin|TRIG_K2_Pin|ON_K3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PA0_Pin|PA1_Pin|PA4_Pin|PA5_Pin
+                          |PA6_Pin|PA7_Pin|YELLOW_Pin|GREEN_Pin
+                          |WHITE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, YELLOW_Pin|GREEN_Pin|WHITE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, PB0_Pin|PB1_Pin|TRIG_K1_Pin|PB10_Pin
+                          |PB11_Pin|PB12_Pin|PB13_Pin|PB14_Pin
+                          |PB15_Pin|TRIG_K2_Pin|ON_K3_Pin|PB5_Pin
+                          |PB6_Pin|PB7_Pin|PB8_Pin|PB9_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, PRBLED_Pin|RED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : TRIG_K1_Pin TRIG_K2_Pin ON_K3_Pin */
-  GPIO_InitStruct.Pin = TRIG_K1_Pin|TRIG_K2_Pin|ON_K3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  /*Configure GPIO pins : S_K1_Pin S_K2_Pin S_K3_Pin */
+  GPIO_InitStruct.Pin = S_K1_Pin|S_K2_Pin|S_K3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : YELLOW_Pin GREEN_Pin WHITE_Pin */
-  GPIO_InitStruct.Pin = YELLOW_Pin|GREEN_Pin|WHITE_Pin;
+  /*Configure GPIO pins : PA0_Pin PA1_Pin PA4_Pin PA5_Pin
+                           PA6_Pin PA7_Pin YELLOW_Pin GREEN_Pin
+                           WHITE_Pin */
+  GPIO_InitStruct.Pin = PA0_Pin|PA1_Pin|PA4_Pin|PA5_Pin
+                          |PA6_Pin|PA7_Pin|YELLOW_Pin|GREEN_Pin
+                          |WHITE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB0_Pin PB1_Pin TRIG_K1_Pin PB10_Pin
+                           PB11_Pin PB12_Pin PB13_Pin PB14_Pin
+                           PB15_Pin TRIG_K2_Pin ON_K3_Pin PB5_Pin
+                           PB6_Pin PB7_Pin PB8_Pin PB9_Pin */
+  GPIO_InitStruct.Pin = PB0_Pin|PB1_Pin|TRIG_K1_Pin|PB10_Pin
+                          |PB11_Pin|PB12_Pin|PB13_Pin|PB14_Pin
+                          |PB15_Pin|TRIG_K2_Pin|ON_K3_Pin|PB5_Pin
+                          |PB6_Pin|PB7_Pin|PB8_Pin|PB9_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PRBLED_Pin RED_Pin */
   GPIO_InitStruct.Pin = PRBLED_Pin|RED_Pin;
@@ -363,6 +351,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PD0_Pin PD1_Pin PD2_Pin PD3_Pin */
+  GPIO_InitStruct.Pin = PD0_Pin|PD1_Pin|PD2_Pin|PD3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

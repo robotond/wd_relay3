@@ -1,4 +1,5 @@
 # Ignore the specific KiCad project-related file
 HARDWARE/wd_relay3/wd_relay3.kicad_prl
 HARDWARE/wd_relay3/wd_relay3.kicad_pro
+HARDWARE/wd_relay3/wd_relay3.kicad_sch-bak
 HARDWARE/wd_relay3/wd_relay3-backups/
